@@ -8,7 +8,7 @@ This project is a starting point for developers who want to learn about riverpod
 
 This project includes:
 * Clean architecture
-* Riverpod state managementbullet
+* Riverpod state management
 * Hive local storage datasource
 * Bottom nav example
 
