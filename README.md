@@ -4,13 +4,13 @@ Travel app using Riverpod.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is a starting point for developers who want to learn about riverpod state management and clean architecture for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+This project includes:
+Clean architecture
+Riverpod state management
+Bottom nav example
+Hive local storage datasource
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="assets/images/sc1.png" width="128"/>
+<img src="assets/images/sc2.png" width="128"/>
