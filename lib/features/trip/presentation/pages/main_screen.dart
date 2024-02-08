@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../provider/bottom_nav_provider.dart';
 import 'add_trips_screen.dart';
 import 'my_trip_screen.dart';
 
@@ -9,8 +10,6 @@ class MainScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final PageController _pageController = PageController();
-    final ValueNotifier<int> _currentPage = ValueNotifier<int>(0);
     String profilPic =
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D";
 
@@ -57,7 +56,7 @@ class MainScreen extends ConsumerWidget {
       ),
       body: SafeArea(
         child: PageView(
-          controller: _pageController,
+          controller: ref.read(bottomNavProvider.notifier).pageController,
           children: [
             const MyTripsScreen(),
             AddTripScreen(),
@@ -69,32 +68,27 @@ class MainScreen extends ConsumerWidget {
           ],
         ),
       ),
-      bottomNavigationBar: ValueListenableBuilder<int>(
-        valueListenable: _currentPage,
-        builder: (context, pageIndex, child) {
-          return BottomNavigationBar(
-            selectedItemColor: Theme.of(context).primaryColor,
-            unselectedItemColor: Theme.of(context).disabledColor,
-            currentIndex: pageIndex,
-            // Set the current page index here
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.list),
-                label: 'My Trips',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.add),
-                label: 'Add Trip',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.map),
-                label: 'Maps',
-              ),
-            ],
-            onTap: (index) {
-              _pageController.jumpToPage(index);
-            },
-          );
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Theme.of(context).primaryColor,
+        unselectedItemColor: Theme.of(context).disabledColor,
+        currentIndex: ref.watch(bottomNavProvider).currentIndex,
+        // Set the current page index here
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'My Trips',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'Add Trip',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.map),
+            label: 'Maps',
+          ),
+        ],
+        onTap: (index) {
+          ref.read(bottomNavProvider.notifier).updateCurrentPage(index);
         },
       ),
     );
