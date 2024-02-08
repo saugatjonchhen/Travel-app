@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:travel_app/features/trip/data/models/trip_model.dart';
+import 'package:travel_app/features/trip/presentation/pages/main_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  /// Init hive.
+  await Hive.initFlutter((await getApplicationDocumentsDirectory()).path);
+  Hive.registerAdapter(TripModelAdapter());
+  await Hive.openBox<TripModel>("trips");
+
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +32,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Travel app using riverpod'),
+      home: const MainScreen(),
     );
   }
 }
